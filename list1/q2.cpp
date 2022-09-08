@@ -291,7 +291,7 @@ int main(int argc, char const *argv[])
 
    
     // Q2.7
-    cout << "# Q2.7) Return memory address of element or 0 if it doesn't exists: " << listA.getNodePtr(2) << endl;
+    cout << "# Q2.7) Return memory address of element or 0 if it doesn't exists: " << endl;
     cout << "* Element 2: " << listA.getNodePtr(2) << endl;
     cout << "* Element 12: " << listA.getNodePtr(12) << endl;
     cout << "* Element 6: " << listA.getNodePtr(6) << endl;
