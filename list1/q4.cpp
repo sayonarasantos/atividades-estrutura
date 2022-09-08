@@ -34,21 +34,23 @@ class List
             }
         }
 
-        // Node* getNodePtr(int value) {
-            // Node* aux = NULL;
+        Node* getNodePtr(int value) {
+            Node* aux = head;
 
-            // while(!isEmpty()) {
-            //     if(aux->value == value) {
-            //         return aux;
-            //     }
+            while(!isEmpty()) {
+                if(aux->value == value) {
+                    return aux;
+                }
 
-            //     if(aux == tail) {
-            //         return NULL;
-            //     }
+                if(aux->next == head) {
+                    break;
+                }
 
-            //     aux = aux->next;             
-            // }
-        // } 
+                aux = aux->next;             
+            }
+
+            return NULL;
+        } 
 
         void insertNode(int newValue) {
             Node* newPtr = new Node(newValue);
@@ -222,8 +224,8 @@ int main(int argc, char const *argv[])
 
 
     // Q4.6
-    // cout << "# Q4.6) Returns memory address of element 2 or 0 if it doesn't exists: " << listA.getNodePtr(2) << endl;
-    // cout << endl;
+    cout << "# Q4.6) Returns memory address of element 2 or 0 if it doesn't exists: " << listA.getNodePtr(2) << endl;
+    cout << endl;
 
 
     // Q4.7
@@ -276,16 +278,16 @@ int main(int argc, char const *argv[])
 
 
     // Q4.5
-    cout << "# Q4.6) Is list empty? (Returns 1 if empty or 0 if not empty) " << listA.isEmpty() << endl;
+    cout << "# Q4.5) Is list empty? (Returns 1 if empty or 0 if not empty) " << listA.isEmpty() << endl;
     cout << endl;
 
    
     // Q4.6
-    // cout << "# Q4.6) Return memory address of element or 0 if it doesn't exists: " << endl;
-    // cout << "* Element 12: " << listA.getNodePtr(12) << endl;
-    // cout << "* Element 2: " << listA.getNodePtr(2) << endl;
-    // cout << "* Element 6: " << listA.getNodePtr(6) << endl;
-    // cout << "* Element 74: " << listA.getNodePtr(74) << endl;
+    cout << "# Q4.6) Return memory address of element or 0 if it doesn't exists: " << endl;
+    cout << "* Element 12: " << listA.getNodePtr(12) << endl;
+    cout << "* Element 2: " << listA.getNodePtr(2) << endl;
+    cout << "* Element 6: " << listA.getNodePtr(6) << endl;
+    cout << "* Element 74: " << listA.getNodePtr(74) << endl;
     cout << endl;
 
 
