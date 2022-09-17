@@ -22,6 +22,8 @@ class List
             head = NULL;
         }
 
+        ~List() {}
+
         int isEmpty() {
             if(head == NULL) {
                 return 1;
@@ -68,7 +70,7 @@ class List
                 }
             }
 
-            elemPtr = NULL;
+            delete elemPtr;
         }
 
         void deleteNodeRecursively(int value, Node* ptr) {
@@ -90,21 +92,25 @@ class List
             }
 
             aux = NULL;
+            delete aux;
         }
 
         void deleteList() {
             Node* aux = NULL;
-            for(Node* i = head; i != NULL; i = i->next) {                
+
+            for(Node* i = head; i != NULL; i = i->next) {  
+                aux = i;
+
                 if(i->next != NULL) {
-                    aux = i;
                     head = i->next;
-                    aux = NULL;
                 } else {
                     head = NULL;
                 }
+
+                aux = NULL;
+                delete aux;
             }
-        }
-        
+        }        
 
         void printList() {     
             if(head != NULL) {
