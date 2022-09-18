@@ -22,14 +22,27 @@ class List
             head = NULL;
         }
 
-        ~List() {}
+        ~List() {
+            deleteList();
+        }
+
+        void deleteList() {
+            Node* aux = NULL;
+
+            while(!isEmpty()) {
+                aux = head;
+                head = aux->next;
+                delete aux;
+                aux = NULL;
+            }
+        }
 
         int isEmpty() {
             if(head == NULL) {
                 return 1;
-            } else {
-                return 0;
             }
+            
+            return 0;
         }
 
         Node* getNodePtr(int value) {
@@ -45,14 +58,11 @@ class List
         void insertNode(int value) {
             Node* ptr = new Node(value);
 
-            if(isEmpty() == 1) {
-                head = ptr;
-            } else {
+            if(!isEmpty()) {
                 ptr->next = head;
-                head = ptr;
             }
 
-            ptr = NULL;
+            head = ptr;
         }
 
         void deleteNode(int value) {
@@ -71,12 +81,13 @@ class List
             }
 
             delete elemPtr;
+            elemPtr = NULL;
         }
 
         void deleteNodeRecursively(int value, Node* ptr) {
             Node* aux = NULL;
 
-            if(head != NULL) {
+            if(!isEmpty()) {
                 if(head->value == value) {
                     aux = head->next;
                     head = aux;
@@ -87,33 +98,15 @@ class List
                     }
                     else {
                         deleteNodeRecursively(value, ptr->next);
+                        delete aux;
+                        aux = NULL;
                     }
                 }
             }
-
-            aux = NULL;
-            delete aux;
         }
 
-        void deleteList() {
-            Node* aux = NULL;
-
-            for(Node* i = head; i != NULL; i = i->next) {  
-                aux = i;
-
-                if(i->next != NULL) {
-                    head = i->next;
-                } else {
-                    head = NULL;
-                }
-
-                aux = NULL;
-                delete aux;
-            }
-        }        
-
         void printList() {     
-            if(head != NULL) {
+            if(!isEmpty()) {
                 for(Node* i = head; i != NULL; i = i->next) {
                     cout << i->value << endl;
                 }
@@ -126,6 +119,8 @@ class List
             if(ptr != NULL) {
                 cout << ptr->value << endl;
                 printListRecursively(ptr->next);
+            } else if(isEmpty()) {
+                cout << "The list is empty." << endl;
             }
         }
 
@@ -151,7 +146,7 @@ int main(int argc, char const *argv[])
 
 
     // Q1.1
-    cout << "# Q1.1) Creating empty list.. " << endl;
+    cout << "# Q1.1) Create a empty list." << endl;
     List myList;
     cout << endl;
 
@@ -179,17 +174,17 @@ int main(int argc, char const *argv[])
 
 
     // Q1.6
-    cout << "# Q1.6) Is list empty? (Returns 1 if empty or 0 if not empty) " << myList.isEmpty() << endl;
+    cout << "# Q1.6) Is the list empty? (Returns 1 if empty or 0 if not empty) " << myList.isEmpty() << endl;
     cout << endl;
 
 
     // Q1.7
-    cout << "# Q1.7) Return memory address of element 2 or 0 if it doesn't exists: " << myList.getNodePtr(2) << endl;
+    cout << "# Q1.7) Check if the element 2 exists: (Return memory address of element or 0 if it doesn't exists) " << myList.getNodePtr(2) << endl;
     cout << endl;
 
 
     // Q1.8
-    cout << "# Q1.8) Remove element 2. " << endl;
+    cout << "# Q1.8) Remove element 2." << endl;
     myList.deleteNode(2);
     cout << "Print the list:" << endl;
     myList.printList();
@@ -244,12 +239,12 @@ int main(int argc, char const *argv[])
 
 
     // Q1.6
-    cout << "# Q1.6) Is list empty? (Returns 1 if empty or 0 if not empty)" << myList.isEmpty() << endl;
+    cout << "# Q1.6) Is the list empty? (Returns 1 if empty or 0 if not empty)" << myList.isEmpty() << endl;
     cout << endl;
 
    
     // Q1.7
-    cout << "# Q1.7) Return memory address of element or 0 if it doesn't exists: " << endl;
+    cout << "# Q1.7) Check if the element exists: (Return memory address of element or 0 if it doesn't exists)" << endl;
     cout << "* Element 1: " << myList.getNodePtr(1) << endl;
     cout << "* Element 3: " << myList.getNodePtr(3) << endl;
     cout << "* Element 12: " << myList.getNodePtr(12) << endl;
@@ -258,7 +253,9 @@ int main(int argc, char const *argv[])
 
 
     // Q1.8
-     cout << "# Q1.8) Remove elements: " << endl;
+    cout << "# Q1.8) Remove elements: " << endl;
+    cout << endl;
+
     cout << "Print the initial list:" << endl;
     myList.printList();
     cout << endl;
@@ -292,20 +289,19 @@ int main(int argc, char const *argv[])
     cout << "Print the list:" << endl;
     myList.printList();
     cout << endl;
-  
+
+
+    // Q1.9
+    cout << "# Q1.9) Remove elements recursively: " << endl;  
+    cout << endl;
 
     cout << "Insert elements 9, 13, 100 and 1111." << endl;
     myList.insertNode(9);
     myList.insertNode(13);
     myList.insertNode(100);
     myList.insertNode(1111);
-    cout << "Print the list:" << endl;
-    myList.printList();
     cout << endl;
 
-    
-    // Q1.9
-    cout << "# Q1.9) Remove elements recursively: " << endl;
     cout << "Print the initial list:" << endl;
     myList.printList();
     cout << endl;
@@ -341,22 +337,24 @@ int main(int argc, char const *argv[])
     cout << endl;
 
 
+    // Q1.10
+    cout << "# Q1.10) Remove the list." << endl;
+    cout << endl;
+
     cout << "Insert elements 5, 14 and 55." << endl;
     myList.insertNode(5);
     myList.insertNode(14);
     myList.insertNode(55);
-    cout << "Print the list:" << endl;
+    cout << endl;
+
+    cout << "Print the initial list:" << endl;
     myList.printList();
     cout << endl;
 
-
-    // Q1.10
-    cout << "# Q1.10) Remove the list." << endl;
     myList.deleteList();
-    cout << "Print the list:" << endl;
+    cout << "Print the final list:" << endl;
     myList.printList();
     cout << endl;
-
 
     return 0;
 }
