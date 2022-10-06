@@ -28,12 +28,16 @@ class List
             size = 0;
         }
 
-        bool isEmpty() {
+        ~List() {
+            deleteList();
+        }
+
+        int isEmpty() {
             if(head == NULL) {
                 return 1;
-            } else {
-                return 0;
             }
+            
+            return 0;
         }
 
         Node* getNodePtr(int value) {
@@ -90,17 +94,21 @@ class List
                 size -= 1;
 
                 if(elemPtr == head && elemPtr == tail) {
+                    delete elemPtr;
                     head = NULL;
                     tail = NULL;
                 } else if(elemPtr == head) {
                     elemPtr->next->prev = NULL;
                     head = elemPtr->next;
+                    delete elemPtr;
                 } else if(elemPtr == tail) {
                     elemPtr->prev->next = NULL;
                     tail = elemPtr->prev;
+                    delete elemPtr;
                 } else {
                     elemPtr->prev->next = elemPtr->next;
                     elemPtr->next->prev = elemPtr->prev;
+                    delete elemPtr;
                 }
             }
 
@@ -133,26 +141,22 @@ class List
                         size -= 1;
                     } else {
                         deleteNodeRecursively(value, ptr->next);
+                        delete aux;
+                        aux = NULL;
                     }
                 }
             }
-
-            aux = NULL;
         }
 
         void deleteList() {
             Node* aux = NULL;
             size = 0;
 
-            for(Node* i = head; i != NULL; i = i->next) {                
-                if(i->next != NULL) {
-                    aux = i;
-                    head = i->next;
-                    aux = NULL;
-                } else {
-                    head = NULL;
-                    tail = NULL;
-                }
+            while(!isEmpty()) {
+                aux = head;
+                head = aux->next;
+                delete aux;
+                aux = NULL;
             }
         }
 

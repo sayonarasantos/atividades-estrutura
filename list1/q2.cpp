@@ -24,12 +24,28 @@ class List
             size = 0;
         }
 
+        ~List() {
+            deleteList();
+        }
+
+        void deleteList() {
+            Node* aux = NULL;
+            size = 0;
+
+            while(!isEmpty()) {
+                aux = head;
+                head = aux->next;
+                delete aux;
+                aux = NULL;
+            }
+        }
+
         int isEmpty() {
             if(head == NULL) {
                 return 1;
-            } else {
-                return 0;
             }
+            
+            return 0;
         }
 
         Node* getNodePtr(int value) {
@@ -46,7 +62,7 @@ class List
             Node* newPtr = new Node(newValue);
             size += 1;
 
-            if(isEmpty() == 1) {
+            if(isEmpty()) {
                 head = newPtr;
             } else{
                 if(head->value >= newValue) {
@@ -84,13 +100,14 @@ class List
                 }
             }
 
+            delete elemPtr;
             elemPtr = NULL;
         }
 
         void deleteNodeRecursively(int value, Node* ptr) {
             Node* aux = NULL;
 
-            if(head != NULL) {
+            if(!isEmpty()) {
                 if(head->value == value) {
                     aux = head->next;
                     head = aux;
@@ -102,31 +119,15 @@ class List
                     }
                     else {
                         deleteNodeRecursively(value, ptr->next);
+                        delete aux;
+                        aux = NULL;
                     }
                 }
             }
-
-            aux = NULL;
         }
-
-        void deleteList() {
-            Node* aux = NULL;
-            size = 0;
-
-            for(Node* i = head; i != NULL; i = i->next) {                
-                if(i->next != NULL) {
-                    aux = i;
-                    head = i->next;
-                    aux = NULL;
-                } else {
-                    head = NULL;
-                }
-            }
-        }
-        
 
         void printList() {     
-            if(head != NULL) {
+            if(!isEmpty()) {
                 for(Node* i = head; i != NULL; i = i->next) {
                     cout << i->value << endl;
                 }
@@ -136,13 +137,11 @@ class List
         }
 
         void printListRecursively(Node* ptr) {
-            if(head == NULL) {
-                cout << "The list is empty." << endl;
-            }
-            
             if(ptr != NULL) {
                 cout << ptr->value << endl;
                 printListRecursively(ptr->next);
+            } else if(isEmpty()) {
+                cout << "The list is empty." << endl;
             }
         }
 
