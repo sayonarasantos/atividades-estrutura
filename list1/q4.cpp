@@ -26,12 +26,16 @@ class List
             size = 0;
         }
 
-        bool isEmpty() {
+        ~List() {
+            deleteList();
+        }
+
+        int isEmpty() {
             if(head == NULL) {
                 return 1;
-            } else {
-                return 0;
             }
+            
+            return 0;
         }
 
         Node* getNodePtr(int value) {
@@ -74,6 +78,7 @@ class List
             if(!isEmpty()) {
                 if(head->value == value && head == tail) {
                     size -= 1;
+                    delete head;
                     head = NULL;
                     tail = NULL;
                 } else if(head->value == value) {
@@ -81,7 +86,7 @@ class List
                     tail->next = aux->next;
                     head = aux;
                     size -= 1;
-                    aux = NULL;
+                    delete aux;
                 } else {
                     while(true) {
                         if(currNode->next != head) {
@@ -94,15 +99,18 @@ class List
 
                                 currNode->next = aux->next;
                                 size -= 1;
-                                aux = NULL;
+                                delete aux;
                             }
                             
                             currNode = currNode->next;
                         } else {
+                            aux = NULL;
                             break;
                         }
                     }
                 }
+
+                aux = NULL;
             }
         }
 
@@ -133,6 +141,8 @@ class List
                         aux = NULL;
                     } else {
                         deleteNodeRecursively(value, ptr->next);
+                        delete aux;
+                        aux = NULL;
                     }
                 }
             }
@@ -140,12 +150,11 @@ class List
 
         void deleteList() {
             Node* aux = NULL;
+            size = 0;
 
             while(!isEmpty()) {
-                size -= 1;
                 aux = head;
                 head = aux->next;
-                aux = NULL;
 
                 if(head == tail) {
                     head = NULL;
@@ -153,6 +162,8 @@ class List
                     break;
                 }
 
+                delete aux;
+                aux = NULL;
             }
         }
 
