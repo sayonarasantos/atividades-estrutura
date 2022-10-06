@@ -28,12 +28,16 @@ class List
             size = 0;
         }
 
-        bool isEmpty() {
+        ~List() {
+            deleteList();
+        }
+
+        int isEmpty() {
             if(head == NULL) {
                 return 1;
-            } else {
-                return 0;
             }
+            
+            return 0;
         }
 
         Node* getNodePtr(int value) {
@@ -76,8 +80,6 @@ class List
             Node* elemPtr = getNodePtr(value);
 
             if(elemPtr != NULL) {
-                size -= 1;
-
                 if(elemPtr == head && elemPtr == tail) {
                     head = NULL;
                     tail = NULL;
@@ -93,9 +95,11 @@ class List
                     elemPtr->prev->next = elemPtr->next;
                     elemPtr->next->prev = elemPtr->prev;
                 }
-            }
 
-            elemPtr = NULL;
+                size -= 1;
+                delete elemPtr;
+                elemPtr = NULL;
+            }
         }
 
 
@@ -104,22 +108,21 @@ class List
 
             if(!isEmpty()) {               
                 if(value == head->value && value == tail->value) {
+                    aux = head;
                     head = NULL;
                     tail = NULL;
                     size -= 1;
                 } else if(value == head->value) {
-                    aux = head->next;
-                    tail->next = aux;
+                    aux = head;
+                    tail->next = aux->next;
                     head->next->prev = tail;
-                    head = aux;
+                    head = aux->next;
                     size -= 1;
-                    aux = NULL;
                 } else if(value == tail->value) {
-                    aux = tail->prev;
+                    aux = tail;
                     tail->prev->next = head;
-                    tail = aux;
+                    tail = aux->prev;
                     size -= 1;
-                    aux = NULL;                 
                 } else if(ptr->next != head) {
                     if(ptr->next->value == value) {
                         aux = ptr->next;
@@ -131,9 +134,10 @@ class List
                         ptr->next->next->prev = ptr;
                         ptr->next = aux->next;
                         size -= 1;
-                        aux = NULL;
                     } else {
                         deleteNodeRecursively(value, ptr->next);
+                        delete aux;
+                        aux = NULL;
                     }
                 }
             }
@@ -141,19 +145,22 @@ class List
 
         void deleteList() {
             Node* aux = NULL;
+            size = 0;
 
             while(!isEmpty()) {
-                size -= 1;
                 aux = head;
                 head = aux->next;
-                aux = NULL;
 
                 if(head == tail) {
+                    delete head;
+                    aux = NULL;
                     head = NULL;
                     tail = NULL;
                     break;
                 }
 
+                delete aux;
+                aux = NULL;
             }
         }
 

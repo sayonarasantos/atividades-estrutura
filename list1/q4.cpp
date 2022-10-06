@@ -119,15 +119,15 @@ class List
 
             if(!isEmpty()) {
                 if(value == head->value && head == tail) {
-                    size -= 1;
+                    aux = head;
                     head = NULL;
                     tail = NULL;
-                } else if(value == head->value) {
-                    aux = head->next;
-                    tail->next = aux;
-                    head = aux;
                     size -= 1;
-                    aux = NULL;
+                } else if(value == head->value) {
+                    aux = head;
+                    tail->next = aux->next;
+                    head = aux->next;
+                    size -= 1;
                 } else if(ptr->next != head) {
                     if(ptr->next->value == value) {
                         aux = ptr->next;
@@ -138,7 +138,6 @@ class List
 
                         ptr->next = aux->next;
                         size -= 1;
-                        aux = NULL;
                     } else {
                         deleteNodeRecursively(value, ptr->next);
                         delete aux;
@@ -157,6 +156,8 @@ class List
                 head = aux->next;
 
                 if(head == tail) {
+                    delete head;
+                    aux = NULL;
                     head = NULL;
                     tail = NULL;
                     break;

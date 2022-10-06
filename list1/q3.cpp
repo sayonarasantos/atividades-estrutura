@@ -120,24 +120,25 @@ class List
 
             if(!isEmpty()) {               
                 if(value == head->value && value == tail->value) {
+                    aux = head;
                     head = NULL;
                     tail = NULL;
                     size -= 1;
                 } else if(value == head->value) {
-                    aux = head->next;
+                    aux = head;
                     head->next->prev = NULL;
-                    head = aux;
+                    head = aux->next;
                     size -= 1;
                 } else if(value == tail->value) {
-                    aux = tail->prev;
+                    aux = tail;
                     tail->prev->next = NULL;
-                    tail = aux;
+                    tail = aux->prev;
                     size -= 1;                    
                 } else if(ptr->next != NULL) {
                     if(ptr->next->value == value) {
-                        aux = ptr->next->next;
+                        aux = ptr->next;
                         ptr->next->next->prev = NULL;
-                        ptr->next = aux;
+                        ptr->next = aux->next;
                         size -= 1;
                     } else {
                         deleteNodeRecursively(value, ptr->next);
