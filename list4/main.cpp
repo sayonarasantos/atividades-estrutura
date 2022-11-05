@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <map>
-#include <set>
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -32,6 +28,7 @@ class Directory
 
         }
 
+        // Pega os bits mais significativos (profundida do hash binário - global_depth)
         int hash(int value) {
             return value & ((1<<global_depth) - 1);
         }
@@ -46,14 +43,16 @@ class Directory
 
             bckt->values.clear();
 
-            if(bckt->local_depth == global_depth) {
+            if(bckt->local_depth == global_depth) { // Inserção caso 3: bucket está completo e só possui uma referência.
 
+                // Atribui o novo bucket à nova posição correta, o novo índice (índice do atual + 2^global_depth).
                 buckets[bucket_index ^ (1<<global_depth)] = new_bucket;
 
                 if(global_depth != 0) {
                     for(int i = 0; i < (1<<global_depth); i++) {
                         if(i != bucket_index)
-                            // updating pointers (?)
+                            // Cria os novos índices da expansão,
+                            // atribuindo os endereços dos buckets antigos a esses índices.
                             buckets[i ^ (1<<global_depth)] = buckets[i];
                     }
                 }
@@ -67,7 +66,7 @@ class Directory
                     int bucket_index = hash(i);
                     buckets[bucket_index]->values.push_back(i);
                 }
-            } else {
+            } else {// Inserção caso 2: bucket está completo e só possui uma referência.
                 int k = bucket_index & (1<<bckt->local_depth - 1);
                 vector<int> indices;
 
@@ -80,7 +79,8 @@ class Directory
                 
                 bckt->local_depth += 1;
                 new_bucket->local_depth = bckt->local_depth;
-
+                
+                // Atribui o novo bucket as novas posições corretas, os novos índices (a metade do vetor indices).
                 for (int i = indices.size()/2; i < indices.size(); i++) {
                     buckets[indices[i]] = new_bucket;
                 }
@@ -152,7 +152,7 @@ class Directory
                 split(bucket_index, buckets[bucket_index]);
 
                 insert(value);
-            } else {
+            } else { // Inserção caso 1: bucket ainda tem espaço.
                 cout << "inserting value: " << value << endl;
                 buckets[bucket_index]->values.push_back(value);
             }
