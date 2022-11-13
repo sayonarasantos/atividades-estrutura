@@ -25,7 +25,7 @@ class Directory
         }
 
         ~Directory() {
-
+            freeHash();
         }
 
         // Pega os bits mais significativos (profundida do hash binário - global_depth)
@@ -169,7 +169,7 @@ class Directory
                 for(it = bckt->values.begin(); it != bckt->values.end(); it++) {
                     if(*it == value) {
                         bckt->values.erase(it);
-                        cout << "Value deleted successfully" << endl;
+                        cout << "Value deleted successfully." << endl;
                         break;
                     }
                 }
@@ -178,7 +178,7 @@ class Directory
 
                 shrink();
             } else {
-                cout << "No value to be deleted" << endl;
+                cout << "No value to be deleted." << endl;
             }
         }
 
@@ -205,30 +205,72 @@ class Directory
             }
         }
 
+        void freeHash() {
+            for(int i = 0; i < buckets.size(); i++) {                
+                for(auto k: buckets[i]->values) {
+                    remove(k);
+                }
+            }
+        }
+
 };
 
 
 int main(int argc, char const *argv[])
 {
+    cout << "******* Starting script... *******" << endl;
+    cout << endl;
+
+
+    // Q4.1
+    cout << "# Create an extendible hash." << endl;
+
     int initial_depth = 0;
     int bucket_size = 4;
 
     Directory dir(initial_depth, bucket_size);
 
+    cout << endl;
+
+    // Q4.2
+    cout << "# Insert elements:" << endl;
     dir.insert(1);
     dir.insert(12);
     dir.insert(13);
     dir.insert(14);
     dir.insert(15);
 
+    dir.printHash();
+
+    cout << endl;
+
+    // Q4.3
+    cout << "# Search for elements: (0 = no, 1 = yes)" << endl;
     cout << "Is value 16 present? " << dir.search(16) << endl;
     cout << "Is value 15 present? " << dir.search(15) << endl;
 
+    cout << endl;
+
+
+    // Q4.4
+    cout << "# Remove elements:" << endl;
     dir.printHash();
+    cout << endl;
 
+    cout << "- Try to remove the 16" << endl;
     dir.remove(16);
-    dir.remove(13);
+    dir.printHash();
+    cout << endl;
 
+    cout << "- Try to remove the 13" << endl;
+    dir.remove(13);
+    dir.printHash();
+    cout << endl;
+
+
+    // Q4.5
+    cout << "# Free hash." << endl;
+    dir.freeHash();
     dir.printHash();
 
     return 0;
