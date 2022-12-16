@@ -7,7 +7,7 @@ int main(int argc, char const *argv[])
     cout << "******* Create a hash table *******" << endl;
     cout << endl;
 
-    cout << "# 1) Enter the maximum value of elements: " << endl;
+    cout << "# Enter the maximum value of elements: " << endl;
     cin >> tableSize;
 
     OpenHash table(tableSize/2);

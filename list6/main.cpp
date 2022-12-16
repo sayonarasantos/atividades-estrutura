@@ -33,7 +33,7 @@ class StringSet
         void removeElement(string element) {
             vector<string>::iterator it;
 
-            for(it = this->elements.begin(); it != this->elements.end(); it++)
+            for(it = this->elements.begin(); it != this->elements.end()+1; it++)
                 if(*it == element)
                     this->elements.erase(it);
         }
@@ -142,6 +142,8 @@ class StringSet
                         newSet.insertElement(el);
 
                 return newSet;
+            } else {
+                cout << "" << endl;
             }
                
             return StringSet();
@@ -151,46 +153,90 @@ class StringSet
             for(string element : this->elements)
                 cout << element << " ";
             cout << endl;
+            cout << endl;
         }
 };
 
 
 int main(int argc, char const *argv[])
 {
+    cout << "******* Starting script... *******" << endl;
+    cout << endl;
+
+    // Q6.1
+    cout << "# Create threee sets (A, B and C)." << endl;
+    cout << endl;
+
     StringSet A(3);
     StringSet B(3);
+    StringSet C(5);
 
+    // Q6.2
+    cout << "# Insert elements." << endl;
+
+    cout << "- Set A:" << endl;
     A.insertElement("car");
     A.insertElement("ball");
     A.insertElement("dog");
-
     A.printSet();
 
+    cout << "- Set B:" << endl;
     B.insertElement("car");
     B.insertElement("ball");
     B.insertElement("road");
+    B.insertElement("pen");
+    B.printSet();
+
+    cout << "- Set C:" << endl;
+    C.insertElement("car");
+    C.insertElement("ball");
+    C.insertElement("dog");
+    C.insertElement("pen");
+    C.printSet();
+
+    // Q6.3
+    cout << "# Remove element 'pen' from B." << endl;
+
+    B.removeElement("pen");
 
     B.printSet();
+
+    // Q6.4
+    cout << "# Join two sets (A and B)." << endl;
 
     StringSet unionSet = A.unionSet(B.elements);
 
     unionSet.printSet();
 
+    // Q6.5
+    cout << "# Make the intersection between two sets (A and B)." << endl;
+
     StringSet intersectionSet = A.intersectionSet(B.elements);
 
     intersectionSet.printSet();
+
+    // Q6.6
+    cout << "# Find the difference between A and B (A - B)." << endl;
 
     StringSet differenceSet = A.differenceSet(B.elements);
 
     differenceSet.printSet();
 
-    cout << "Is A a subset of B? " << A.isSubset(B.elements) << endl;
+    // Q6.7
+    cout << "# Is A a subset of B? (0: false, 1: true) " << A.isSubset(B.elements) << endl;
+     cout << "# Is A a subset of C? (0: false, 1: true) " << A.isSubset(C.elements) << endl;
+    cout << endl;
 
-    cout << "Is A equals to B? " << A.isEqual(B.elements) << endl;
+    // Q6.8
+    cout << "# Is A equals to B? (0: false, 1: true) " << A.isEqual(B.elements) << endl;
+    cout << endl;
 
-    StringSet complementarySet = A.complementarySet(B.elements);
+    // Q6.9
+    cout << "#Generate the complement of set A with respect to C." << endl;
 
-    cout << "~A is" << endl;
+    StringSet complementarySet = A.complementarySet(C.elements);
+
+    cout << "~A is ";
     complementarySet.printSet();
 
     return 0;

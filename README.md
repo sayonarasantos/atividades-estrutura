@@ -8,7 +8,8 @@ Programa: MDCC da UFC
 - `list2`: resolução da lista 2 sobre Complexidade de Algoritmos;
 - `list3`: resolução da lista 3 sobre Hash Tables;
 - `list4`: resolução da lista 4 sobre Hash Estendível;
-- `list5`: resolução da lista 5 sobre Hash Heap.
+- `list5`: resolução da lista 5 sobre Hash Heap;
+- `list6`: resolução da lista 6 sobre Conjuntos.
 
 ## Execução dos códigos
 
@@ -28,7 +29,8 @@ Este repositório possui o arquivo `makefile` para facilitar a execução do có
     - `make l1q5`: executa a questão 5 da lista 1;
     - `make l3`: executa a lista 3;
     - `make l4`: executa a lista 4;
-    - `make l5`: executa a lista 5.
+    - `make l5`: executa a lista 5;
+    - `make l6`: executa a lista 6.
 
 3. Para remover os executáveis criado, você pode usar o comando:
 

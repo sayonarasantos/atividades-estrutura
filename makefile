@@ -35,3 +35,7 @@ l4:
 l5:
 	g++ list5/* -o output/l5
 	./output/l5
+
+l6:
+	g++ list6/* -o output/l6
+	./output/l6
