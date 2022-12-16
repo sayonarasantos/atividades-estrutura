@@ -224,7 +224,7 @@ int main(int argc, char const *argv[])
 
     // Q6.7
     cout << "# Is A a subset of B? (0: false, 1: true) " << A.isSubset(B.elements) << endl;
-     cout << "# Is A a subset of C? (0: false, 1: true) " << A.isSubset(C.elements) << endl;
+    cout << "# Is A a subset of C? (0: false, 1: true) " << A.isSubset(C.elements) << endl;
     cout << endl;
 
     // Q6.8
@@ -232,12 +232,29 @@ int main(int argc, char const *argv[])
     cout << endl;
 
     // Q6.9
-    cout << "#Generate the complement of set A with respect to C." << endl;
+    cout << "# Generate the complement of set A with respect to C." << endl;
 
     StringSet complementarySet = A.complementarySet(C.elements);
 
     cout << "~A is ";
     complementarySet.printSet();
+
+    // Q6.10
+    cout << "# Does element 'pen' belong to set A? (0: false, 1: true) " << A.contains("pen") << endl;
+    cout << "# Does element 'car' belong to set A? (0: false, 1: true) " << A.contains("car") << endl;
+    cout << endl;
+
+    // Q6.11
+    cout << "# Number of elements of A: " << A.getCurrentSize() << endl;
+    cout << "# Number of elements of B: " << B.getCurrentSize() << endl;
+    cout << "# Number of elements of C: " << C.getCurrentSize() << endl;
+    cout << endl;
+
+    // Q6.12
+    cout << "# Free set A." << A.getCurrentSize() << endl;
+    A. elements.clear();
+    cout << "- Set A:" << endl;
+    A.printSet();
 
     return 0;
 }
