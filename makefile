@@ -39,3 +39,19 @@ l5:
 l6:
 	g++ list6/* -o output/l6
 	./output/l6
+
+l7:
+	g++ list7/* -o output/l7
+	./output/l7
+
+l8:
+	g++ list8/* -o output/l8
+	./output/l8
+
+l9:
+	g++ list9/* -o output/l9
+	./output/l9
+
+l10:
+	g++ list10/* -o output/l10
+	./output/l10
